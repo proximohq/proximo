@@ -1,0 +1,16 @@
+{
+  "name": "proximo-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "./node_modules/.bin/jasmine"
+  },
+  "author": "René Olivo",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.13.4",
+    "jasmine": "^2.4.1",
+    "nedb": "^1.8.0"
+  }
+}
