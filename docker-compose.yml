@@ -1,0 +1,10 @@
+server:
+  image: node:latest
+
+database:
+  image: mysql:latest
+  env_file: .env
+  environment:
+    MYSQL_DATABASE: proximo
+  ports:
+    - "3306:3306"

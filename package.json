@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=jasmine.config.json"
+    "test": "./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=jasmine.config.json",
+    "migrate": "./node_modules/.bin/db-migrate"
   },
   "author": "René Olivo",
   "license": "MIT",
@@ -12,5 +13,9 @@
     "express": "^4.13.4",
     "jasmine": "^2.4.1",
     "nedb": "^1.8.0"
+  },
+  "devDependencies": {
+    "db-migrate": "^0.10.0-beta.20",
+    "db-migrate-mysql": "^1.1.10"
   }
 }
