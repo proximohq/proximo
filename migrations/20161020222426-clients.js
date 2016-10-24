@@ -21,17 +21,17 @@ exports.up = function(db) {
     id: types.id,
     name: types.shortString
   })
-  .then(() => db.createTable('client_roles', {
+  .then(() => db.createTable('roles', {
     id: types.id,
-    idClient: types.foreignKey('client_roles', 'clients'),
-    idUser: types.foreignKey('client_roles', 'users'),
+    idClient: types.foreignKey('roles', 'clients'),
+    idUser: types.foreignKey('roles', 'users'),
     role: types.enum('ADMIN', 'ATTENDANT')
   }));
 };
 
 exports.down = function(db) {
   return db.dropTable('clients')
-  .then(() => db.dropTable('client_roles'));
+  .then(() => db.dropTable('roles'));
 };
 
 exports._meta = {

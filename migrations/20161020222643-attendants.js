@@ -20,7 +20,7 @@ exports.up = function(db) {
   return db.createTable('attendant_stations', {
     id: types.id,
     idStation: types.foreignKey('attendant_stations', 'stations'),
-    idAttendant: types.foreignKey('attendant_stations', 'client_roles'),
+    idAttendant: types.foreignKey('attendant_stations', 'roles'),
     started: types.dateTime,
     completed: types.dateTime
   });
