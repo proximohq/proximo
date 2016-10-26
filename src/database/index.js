@@ -1,7 +1,7 @@
-var Station = require('./station');
+'use strict';
 
-var Database = {
-  station: Station
+const Client = require('./models/client');
+
+module.exports = {
+  Client
 };
-
-module.exports = Database;
