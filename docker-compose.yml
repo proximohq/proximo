@@ -12,7 +12,9 @@ services:
     build: .
     volumes:
       - ./src:/usr/src/app/src
+      - ./config:/usr/src/app/config
       - ./migrations:/usr/src/app/migrations
+      - ./models:/usr/src/app/models
     ports:
       - 3000:3000
     command: sh /usr/src/app/start.sh
