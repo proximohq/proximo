@@ -1,10 +1,26 @@
-var express = require('express');
-var app = express();
+'use strict';
+
+const dotenv = require('dotenv').config();
+const express = require('express');
+const app = express();
+const db = require('./database');
+
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
+app.get('/api/clients', function(req, res) {
+  db.Client.findAll({ attributes: ['id', 'name'] })
+  .then(function(clients) {
+    res.json(clients);
+  });
+});
+
+app.post('/api/clients', function(req, res) {
+
+});
+
 app.listen(3000, function () {
-  console.log('Example app listening on port 3000!');
+  console.log('App started on port 3000!');
 });
