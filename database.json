@@ -1,9 +1,0 @@
-{
-  "dev": {
-    "driver": "mysql",
-    "database": "proximo",
-    "host": "database",
-    "user": "root",
-    "password": { "ENV": "MYSQL_ROOT_PASSWORD" }
-  }
-}
