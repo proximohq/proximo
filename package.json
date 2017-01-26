@@ -4,7 +4,7 @@
   "description": "",
   "main": "src/app.js",
   "scripts": {
-    "start": "node app.js",
+    "start": "node server/app.js",
     "test": "./node_modules/.bin/jasmine JASMINE_CONFIG_PATH=jasmine.config.json",
     "migrate": "./node_modules/.bin/sequelize db:migrate"
   },

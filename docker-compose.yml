@@ -11,7 +11,7 @@ services:
   server:
     build: .
     volumes:
-      - ./src:/usr/src/app/src
+      - ./server:/usr/src/app/server
       - ./config:/usr/src/app/config
       - ./migrations:/usr/src/app/migrations
       - ./models:/usr/src/app/models

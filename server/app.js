@@ -3,7 +3,7 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const app = express();
-const db = require('./models');
+const db = require('../models');
 
 
 app.get('/', function (req, res) {
@@ -12,8 +12,8 @@ app.get('/', function (req, res) {
 
 app.get('/api/users', function(req, res) {
   db.users.findAll()
-  .then(function(clients) {
-    res.json(clients);
+  .then(function(users) {
+    res.json(users);
   });
 });
 
