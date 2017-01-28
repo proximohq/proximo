@@ -1,6 +1,9 @@
 const SelectAllController = require('./select-all-controller');
 
 describe('SelectAllController', () => {
+  let ctrl, model, req, res, list;
+  const DEFAULT_LIMIT = 100;
+
   it('should be defined', () => {
     expect(typeof SelectAllController).toBe('function');
   });
@@ -9,32 +12,32 @@ describe('SelectAllController', () => {
     expect(typeof SelectAllController.prototype.execute).toBe('function');
   });
 
+  function setup() {
+    list = ['a', 'b', 'c'];
+
+    model = {
+      findAndCountAll: jasmine.createSpy('findAll')
+      .and.returnValue(Promise.resolve({
+        count: list.length,
+        rows: list
+      }))
+    };
+
+    req = { query: {} };
+    res = {};
+
+    res.status = jasmine.createSpy('status')
+    .and.returnValue(res),
+
+    res.json = jasmine.createSpy('json');
+
+    ctrl = new SelectAllController(
+      model, req, res
+    );
+  }
+
   describe('resolving a request', () => {
-    let ctrl, model, req, res, list;
-
-    beforeEach(() => {
-      list = ['a', 'b', 'c'];
-
-      model = {
-        findAndCountAll: jasmine.createSpy('findAll')
-        .and.returnValue(Promise.resolve({
-          count: list.length,
-          rows: list
-        }))
-      };
-
-      req = {};
-      res = {};
-
-      res.status = jasmine.createSpy('status')
-      .and.returnValue(res),
-
-      res.json = jasmine.createSpy('json');
-
-      ctrl = new SelectAllController(
-        model, req, res
-      );
-    });
+    beforeEach(setup);
 
     it('should response a json list from the model', (done) => {
       let expectedResult = {
@@ -50,12 +53,13 @@ describe('SelectAllController', () => {
       });
     });
 
-    it('should limit the number of results to 100', (done) => {
+    it('should limit the number of results to default limit', (done) => {
       ctrl.execute();
 
       setTimeout(() => {
         expect(model.findAndCountAll).toHaveBeenCalledWith({
-          limit: 100
+          limit: DEFAULT_LIMIT,
+          where: undefined
         });
 
         done();
@@ -79,6 +83,30 @@ describe('SelectAllController', () => {
         done();
       });
     });
+  });
 
+  describe('Filtering', () => {
+    beforeEach(setup);
+
+    it('should accept a where filter', (done) => {
+      const where = {
+        firstName: 'Jon',
+        lastName: 'Snow'
+      };
+
+      req.query = {
+        where: where
+      };
+
+      ctrl.execute();
+
+      setTimeout(() => {
+        expect(model.findAndCountAll).toHaveBeenCalledWith({
+          where: where,
+          limit: DEFAULT_LIMIT
+        });
+        done();
+      });
+    });
   });
 });
