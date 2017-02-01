@@ -7,9 +7,12 @@ const MODEL_NAME = 'roles';
 
 const definition = {
   id: types.id,
-  idClient: types.foreignKey('clients'),
-  idUser: types.foreignKey('users'),
-  role: Sequelize.ENUM('ADMIN', 'ATTENDANT')
+  clientId: types.foreignKey('clients'),
+  userId: types.foreignKey('users'),
+  role: Sequelize.ENUM('ADMIN', 'ATTENDANT'),
+  createdAt: types.date,
+  updatedAt: types.date,
+  isDeleted: types.boolean
 };
 
 const model = function(sequelize) {

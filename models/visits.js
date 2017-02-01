@@ -7,7 +7,7 @@ const MODEL_NAME = 'visits';
 
 const definition = {
   id: types.id,
-  idUser: types.foreignKey('users'),
+  userId: types.foreignKey('users'),
   started: types.date,
   completed: types.date,
   createdAt: types.date,

@@ -7,7 +7,7 @@ const MODEL_NAME = 'services';
 
 const definition = {
   id: types.id,
-  idGroup: types.foreignKey('serviceGroups'),
+  groupId: types.foreignKey('serviceGroups'),
   name: types.shortString
 };
 

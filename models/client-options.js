@@ -7,7 +7,7 @@ const MODEL_NAME = 'clientOptions';
 
 const definition = {
   id: types.id,
-  idClient: types.foreignKey('clients'),
+  clientId: types.foreignKey('clients'),
   name: types.shortString,
   value: types.shortString
 };

@@ -7,8 +7,8 @@ const MODEL_NAME = 'attendants';
 
 const definition = {
   id: types.id,
-  idStation: types.foreignKey('stations'),
-  idAttendant: types.foreignKey('roles'),
+  stationId: types.foreignKey('stations'),
+  attendantId: types.foreignKey('roles'),
   started: types.date,
   completed: types.date,
   createdAt: types.date,
