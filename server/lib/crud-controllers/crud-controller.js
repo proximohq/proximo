@@ -1,8 +1,9 @@
 module.exports = class CrudController {
-  constructor(model, request, response) {
-    this.model = model;
+  constructor(request, response, model, scope = {}) {
     this.request = request;
     this.response = response;
+    this.model = model;
+    this.scope = scope;
   }
 
   execute() {}

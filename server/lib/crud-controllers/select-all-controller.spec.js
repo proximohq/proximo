@@ -16,7 +16,7 @@ describe('SelectAllController', () => {
     list = ['a', 'b', 'c'];
 
     model = {
-      findAndCountAll: jasmine.createSpy('findAll')
+      findAndCountAll: jasmine.createSpy('findAndCountAll')
       .and.returnValue(Promise.resolve({
         count: list.length,
         rows: list
@@ -32,7 +32,7 @@ describe('SelectAllController', () => {
     res.json = jasmine.createSpy('json');
 
     ctrl = new SelectAllController(
-      model, req, res
+      req, res, model
     );
   }
 
@@ -58,8 +58,7 @@ describe('SelectAllController', () => {
 
       setTimeout(() => {
         expect(model.findAndCountAll).toHaveBeenCalledWith({
-          limit: DEFAULT_LIMIT,
-          where: undefined
+          limit: DEFAULT_LIMIT
         });
 
         done();
@@ -108,5 +107,23 @@ describe('SelectAllController', () => {
         done();
       });
     });
+
+    it('should extend a scope filter', (done) => {
+      let scope = {
+        where: { id: 1 }
+      };
+
+      ctrl = new SelectAllController(req, res, model, scope);
+
+      ctrl.execute();
+
+      setTimeout(() => {
+        scope.limit = 100;
+
+        expect(model.findAndCountAll).toHaveBeenCalledWith(scope);
+        done();
+      });
+    });
+
   });
 });
