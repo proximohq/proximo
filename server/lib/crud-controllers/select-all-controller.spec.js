@@ -66,10 +66,10 @@ describe('SelectAllController', () => {
     });
 
     it('should handle model errors', (done) => {
-      const error = new Error('message');
-      const expectedResult = {
-        error: true,
-        details: error
+      const error = {
+        name: 'Error',
+        message: 'Some Error',
+        errors: ['Error1', 'Error2']
       };
 
       model.findAndCountAll.and.returnValue(Promise.reject(error));
@@ -78,7 +78,7 @@ describe('SelectAllController', () => {
 
       setTimeout(() => {
         expect(res.status).toHaveBeenCalledWith(500);
-        expect(res.json).toHaveBeenCalledWith(expectedResult);
+        expect(res.json).toHaveBeenCalledWith(error);
         done();
       });
     });

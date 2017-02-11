@@ -12,8 +12,9 @@ module.exports = class CrudController {
     this.response
     .status(500)
     .json({
-      error: true,
-      details: error
+      name: error.name,
+      message: error.message,
+      errors: error.errors
     });
   }
 }
