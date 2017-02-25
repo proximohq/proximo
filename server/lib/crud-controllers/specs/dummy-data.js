@@ -14,12 +14,30 @@ module.exports = function() {
     job: 'commander of the wall'
   };
 
+  record.update = jasmine.createSpy('update')
+  .and.returnValue(Promise.resolve(record));
+
   model = {
     create: jasmine.createSpy('create')
     .and.returnValue(Promise.resolve(record)),
 
-    findOne: jasmine.createSpy('findOne')
+    update: jasmine.createSpy('update')
     .and.returnValue(Promise.resolve(record)),
+
+    findOne: jasmine.createSpy('findOne')
+    .and.callFake((params) => {
+      if (params.where.id !== 99) return Promise.resolve(null);
+
+      return Promise.resolve(record);
+    }),
+
+    findById: jasmine.createSpy('findById')
+    .and.callFake((id) => {
+      if (id !== 99) return Promise.resolve(null);
+
+      return Promise.resolve(record);
+
+    }),
 
     findAndCountAll: jasmine.createSpy('findAndCountAll')
     .and.returnValue(Promise.resolve({
@@ -44,14 +62,26 @@ module.exports = function() {
   };
 
   function handleErrors(ctrl, done) {
-    model.findOne.and.returnValue(Promise.reject(error));
-    model.create.and.returnValue(Promise.reject(error));
+    model.findOne.and.callFake(() => Promise.reject(error));
+    model.create.and.callFake(() => Promise.reject(error));
+    record.update.and.callFake(() => Promise.reject(error));
 
     ctrl.execute();
 
     setTimeout(() => {
       expect(response.status).toHaveBeenCalledWith(500);
       expect(response.json).toHaveBeenCalledWith(error);
+      done();
+    });
+  }
+
+  function expect404(ctrl, done) {
+    request.params.id = 200;
+
+    ctrl.execute();
+
+    setTimeout(() => {
+      expect(response.status).toHaveBeenCalledWith(404);
       done();
     });
   }
@@ -64,7 +94,8 @@ module.exports = function() {
     list,
     error,
     expects: {
-      handleErrors
+      handleErrors,
+      expect404
     }
   };
 };

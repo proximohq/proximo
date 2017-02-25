@@ -8,6 +8,12 @@ module.exports = class CrudController {
 
   execute() {}
 
+  _handle404() {
+    this.response
+    .status(404)
+    .json(null);
+  }
+
   _handleError(error) {
     this.response
     .status(500)
