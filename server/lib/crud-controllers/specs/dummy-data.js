@@ -17,6 +17,9 @@ module.exports = function() {
   record.update = jasmine.createSpy('update')
   .and.returnValue(Promise.resolve(record));
 
+  record.destroy = jasmine.createSpy('destroy')
+  .and.returnValue(Promise.resolve());
+
   model = {
     create: jasmine.createSpy('create')
     .and.returnValue(Promise.resolve(record)),
@@ -65,6 +68,7 @@ module.exports = function() {
     model.findOne.and.callFake(() => Promise.reject(error));
     model.create.and.callFake(() => Promise.reject(error));
     record.update.and.callFake(() => Promise.reject(error));
+    record.destroy.and.callFake(() => Promise.reject(error));
 
     ctrl.execute();
 

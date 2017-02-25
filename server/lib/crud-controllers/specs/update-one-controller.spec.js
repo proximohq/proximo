@@ -72,6 +72,7 @@ function replyWithRecordOnSuccess(done) {
   ctrl.execute();
 
   setTimeout(() => {
+    expect(data.record.update).toHaveBeenCalled();
     expect(data.response.json).toHaveBeenCalledWith(data.record);
     done();
   });
