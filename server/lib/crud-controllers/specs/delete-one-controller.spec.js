@@ -14,7 +14,7 @@ describe('Delete One Controller', () => {
 
     it('should reply with a generic error if the record was not deleted properly', handleUnknownError);
 
-    it('should reply with the deleted record if everything went well', replyWithRecordOnSuccess);
+    it('should reply with null if everything went well', replyWithNullOnSuccess);
   });
 });
 
@@ -43,12 +43,12 @@ function handleUnknownError(done) {
   data.expects.handleErrors(ctrl, done);
 }
 
-function replyWithRecordOnSuccess(done) {
+function replyWithNullOnSuccess(done) {
   ctrl.execute();
 
   setTimeout(() => {
     expect(data.record.destroy).toHaveBeenCalled();
-    expect(data.response.json).toHaveBeenCalledWith(data.record);
+    expect(data.response.json).toHaveBeenCalledWith(null);
     done();
   });
 }

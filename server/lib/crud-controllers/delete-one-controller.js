@@ -7,12 +7,12 @@ module.exports = class DeleteOneController extends CrudController {
       if (record === null) return this._handle404();
 
       return record.destroy(this.request.body)
-      .then(this._handleSuccess.bind(this, record));
+      .then(this._handleSuccess.bind(this));
     })
     .catch(this._handleError.bind(this));
   }
 
-  _handleSuccess(record) {
-    this.response.json(record);
+  _handleSuccess() {
+    this.response.json(null);
   }
 }
