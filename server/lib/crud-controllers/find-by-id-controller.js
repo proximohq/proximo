@@ -1,17 +1,15 @@
 const CrudController = require('./crud-controller');
 
 module.exports = class FindByIdController extends CrudController {
-  execute() {
+  execute () {
     super.execute();
 
-    this.model.findOne({
-      where: { id: this.request.params.id }
-    })
-    .then(this._handleSuccess.bind(this))
-    .catch(this._handleError.bind(this));
+    this.model.findOne({ where: { id: this.request.params.id } })
+      .then(this._handleSuccess.bind(this))
+      .catch(this._handleError.bind(this));
   }
 
-  _handleSuccess(record) {
+  _handleSuccess (record) {
     if (record !== null) {
       this.response.json(record);
     } else {
@@ -19,4 +17,4 @@ module.exports = class FindByIdController extends CrudController {
       this.response.json(null);
     }
   }
-}
+};

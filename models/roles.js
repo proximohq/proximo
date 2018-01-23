@@ -15,7 +15,7 @@ const definition = {
   isDeleted: types.boolean
 };
 
-const model = function(sequelize) {
+const model = function (sequelize) {
   return sequelize.define(MODEL_NAME, definition);
 };
 

@@ -3,7 +3,7 @@ const models = require('../../models');
 const controllers = require('./crud-controllers');
 
 module.exports = class Endpoint {
-  constructor(router, modelName, pathName = null) {
+  constructor (router, modelName, pathName = null) {
     this.modelName = modelName;
     this.pathName = pathName || modelName;
     this.router = express.Router();
@@ -13,20 +13,21 @@ module.exports = class Endpoint {
     router.use(`/${this.pathName}`, this.router);
   }
 
-  attachActions() {
+  attachActions () {
     const crudActions = this.getCrudActions();
 
-    for(let i in crudActions) {
+    for (let i in crudActions) {
       const crud = crudActions[i];
+      const CrudController = crud.controller;
 
       this.router[crud.method](`${crud.path}`, (req, res) => {
-        const ctrl = new crud.controller(req, res, this.model);
+        const ctrl = new CrudController(req, res, this.model);
         ctrl.execute();
       });
     }
   }
 
-  getCrudActions() {
+  getCrudActions () {
     return {
       selectAll: {
         path: '/',
@@ -55,4 +56,4 @@ module.exports = class Endpoint {
       }
     };
   }
-}
+};

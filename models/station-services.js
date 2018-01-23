@@ -1,6 +1,5 @@
 'use strict';
 
-const Sequelize = require('sequelize');
 const types = require('./types');
 
 const MODEL_NAME = 'stationServices';
@@ -15,7 +14,7 @@ const definition = {
   isDeleted: types.boolean
 };
 
-const model = function(sequelize) {
+const model = function (sequelize) {
   return sequelize.define(MODEL_NAME, definition);
 };
 

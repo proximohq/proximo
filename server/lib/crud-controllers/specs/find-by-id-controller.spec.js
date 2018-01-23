@@ -1,3 +1,5 @@
+/* eslint-env jasmine */
+
 const FindByIdController = require('../find-by-id-controller');
 const CrudController = require('../crud-controller');
 const dummyData = require('./dummy-data');
@@ -18,14 +20,14 @@ describe('FindByIdController', () => {
   });
 });
 
-function shouldBeDefined() {
+function shouldBeDefined () {
   expect(FindByIdController.prototype instanceof CrudController).toBe(true);
 }
 
 let data;
 let ctrl;
 
-function setup() {
+function setup () {
   data = dummyData();
 
   ctrl = new FindByIdController(
@@ -35,7 +37,7 @@ function setup() {
   );
 }
 
-function findById(done) {
+function findById (done) {
   ctrl.execute();
 
   setTimeout(() => {
@@ -50,7 +52,7 @@ function findById(done) {
   });
 }
 
-function notFound(done) {
+function notFound (done) {
   data.model.findOne.and.returnValue(Promise.resolve(null));
 
   ctrl.execute();
@@ -62,6 +64,6 @@ function notFound(done) {
   });
 }
 
-function handleErrors(done) {
+function handleErrors (done) {
   data.expects.handleErrors(ctrl, done);
 }

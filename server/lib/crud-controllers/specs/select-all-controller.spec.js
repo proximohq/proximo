@@ -1,9 +1,10 @@
+/* eslint-env jasmine */
+
 const SelectAllController = require('../select-all-controller');
 const CrudController = require('../crud-controller');
 const dummyData = require('./dummy-data');
 
 describe('SelectAllController', () => {
-
   describe('definitions', () => {
     it('should be defined', isDefined);
   });
@@ -25,10 +26,9 @@ describe('SelectAllController', () => {
 
     it('should extend a scope filter', extendScope);
   });
-
 });
 
-function isDefined() {
+function isDefined () {
   expect(SelectAllController.prototype instanceof CrudController).toBe(true);
 }
 
@@ -36,7 +36,7 @@ let data;
 let ctrl;
 const DEFAULT_LIMIT = 100;
 
-function setup() {
+function setup () {
   data = dummyData();
 
   ctrl = new SelectAllController(
@@ -46,7 +46,7 @@ function setup() {
   );
 }
 
-function successResponse(done) {
+function successResponse (done) {
   let expectedResult = {
     count: data.list.length,
     result: data.list
@@ -72,7 +72,7 @@ function limitResults(done) {
   });
 }
 
-function handleErrors(done) {
+function handleErrors (done) {
   data.model.findAndCountAll.and.returnValue(Promise.reject(data.error));
 
   ctrl.execute();
@@ -84,7 +84,7 @@ function handleErrors(done) {
   });
 }
 
-function whereFilter(done) {
+function whereFilter (done) {
   const where = {
     firstName: 'Jon',
     lastName: 'Snow'
@@ -105,7 +105,7 @@ function whereFilter(done) {
   });
 }
 
-function extendScope(done) {
+function extendScope (done) {
   let scope = {
     where: { id: 1 }
   };

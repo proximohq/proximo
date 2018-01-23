@@ -1,20 +1,20 @@
 'use strict';
 
-const dotenv = require('dotenv').config();
+require('dotenv').config();
+
 const express = require('express');
 const app = express();
 const db = require('../models');
-
 
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
 
-app.get('/api/users', function(req, res) {
+app.get('/api/users', function (req, res) {
   db.users.findAll()
-  .then(function(users) {
-    res.json(users);
-  });
+    .then(function (users) {
+      res.json(users);
+    });
 });
 
 app.listen(3000, function () {

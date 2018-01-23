@@ -1,8 +1,10 @@
+/* eslint-env jasmine */
+
 const CreateController = require('../create-controller');
 const CrudController = require('../crud-controller');
 const dummyData = require('./dummy-data');
 
-describe('', () => {
+describe('CreateController', () => {
   describe('definitions', () => {
     it('should extend CrudController', isDefined);
   });
@@ -20,15 +22,14 @@ describe('', () => {
   });
 });
 
-
-function isDefined() {
+function isDefined () {
   expect(CreateController.prototype instanceof CrudController).toBe(true);
 }
 
 let data;
 let ctrl;
 
-function setup() {
+function setup () {
   data = dummyData();
 
   ctrl = new CreateController(
@@ -38,13 +39,13 @@ function setup() {
   );
 }
 
-function attemptToCreateRecord() {
+function attemptToCreateRecord () {
   ctrl.execute();
 
   expect(data.model.create).toHaveBeenCalledWith(data.record);
 }
 
-function attemptWithInvalidRecord(done) {
+function attemptWithInvalidRecord (done) {
   const errors = ['Error1', 'Error2'];
 
   data.model.create.and.returnValue(Promise.reject({
@@ -66,11 +67,11 @@ function attemptWithInvalidRecord(done) {
   });
 }
 
-function handleUnknownError(done) {
+function handleUnknownError (done) {
   data.expects.handleErrors(ctrl, done);
 }
 
-function handleSuccess(done) {
+function handleSuccess (done) {
   ctrl.execute();
 
   setTimeout(() => {

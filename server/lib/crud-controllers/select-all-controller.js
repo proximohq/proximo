@@ -1,17 +1,17 @@
 const CrudController = require('./crud-controller');
 
 module.exports = class SelectAllController extends CrudController {
-  execute() {
+  execute () {
     const parameters = this._getQueryParameters();
 
     this.model.findAndCountAll(parameters)
-    .then(
-      this._sendResponse.bind(this),
-      this._handleError.bind(this)
-    );
+      .then(
+        this._sendResponse.bind(this),
+        this._handleError.bind(this)
+      );
   }
 
-  _getQueryParameters() {
+  _getQueryParameters () {
     let params = {
       limit: 100
     };
@@ -25,10 +25,10 @@ module.exports = class SelectAllController extends CrudController {
     return params;
   }
 
-  _sendResponse(result) {
+  _sendResponse (result) {
     this.response.json({
       count: result.count,
       result: result.rows
     });
   }
-}
+};

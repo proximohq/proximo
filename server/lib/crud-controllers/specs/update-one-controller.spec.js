@@ -1,3 +1,5 @@
+/* eslint-env jasmine */
+
 const dummyData = require('./dummy-data');
 const UpdateOneController = require('../update-one-controller');
 const CrudController = require('../crud-controller');
@@ -20,14 +22,14 @@ describe('Update One Controller', () => {
   });
 });
 
-function isDefined() {
+function isDefined () {
   expect(UpdateOneController.prototype instanceof CrudController).toBe(true);
 }
 
 let data;
 let ctrl;
 
-function setup() {
+function setup () {
   data = dummyData();
 
   ctrl = new UpdateOneController(
@@ -37,7 +39,7 @@ function setup() {
   );
 }
 
-function passScopeParams(done) {
+function passScopeParams (done) {
   const scope = {
     fields: [ 'firstName', 'lastName' ]
   };
@@ -60,15 +62,15 @@ function passScopeParams(done) {
   });
 }
 
-function reply404OnNoUpdate(done) {
+function reply404OnNoUpdate (done) {
   data.expects.expect404(ctrl, done);
 }
 
-function handleUnknownError(done) {
+function handleUnknownError (done) {
   data.expects.handleErrors(ctrl, done);
 }
 
-function replyWithRecordOnSuccess(done) {
+function replyWithRecordOnSuccess (done) {
   ctrl.execute();
 
   setTimeout(() => {

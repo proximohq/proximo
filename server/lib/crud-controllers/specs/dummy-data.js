@@ -1,4 +1,6 @@
-module.exports = function() {
+/* eslint-env jasmine */
+
+module.exports = function () {
   let request;
   let response;
   let model;
@@ -39,7 +41,6 @@ module.exports = function() {
       if (id !== 99) return Promise.resolve(null);
 
       return Promise.resolve(record);
-
     }),
 
     findAndCountAll: jasmine.createSpy('findAndCountAll')
@@ -64,7 +65,7 @@ module.exports = function() {
     errors: [ 'Error1', 'Error2', 'Error3' ]
   };
 
-  function handleErrors(ctrl, done) {
+  function handleErrors (ctrl, done) {
     model.findOne.and.callFake(() => Promise.reject(error));
     model.create.and.callFake(() => Promise.reject(error));
     record.update.and.callFake(() => Promise.reject(error));
@@ -79,7 +80,7 @@ module.exports = function() {
     });
   }
 
-  function expect404(ctrl, done) {
+  function expect404 (ctrl, done) {
     request.params.id = 200;
 
     ctrl.execute();

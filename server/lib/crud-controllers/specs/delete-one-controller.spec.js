@@ -1,3 +1,5 @@
+/* eslint-env jasmine */
+
 const dummyData = require('./dummy-data');
 const DeleteOneController = require('../delete-one-controller');
 const CrudController = require('../crud-controller');
@@ -18,14 +20,14 @@ describe('Delete One Controller', () => {
   });
 });
 
-function isDefined() {
+function isDefined () {
   expect(DeleteOneController.prototype instanceof CrudController).toBe(true);
 }
 
 let data;
 let ctrl;
 
-function setup() {
+function setup () {
   data = dummyData();
 
   ctrl = new DeleteOneController(
@@ -35,15 +37,15 @@ function setup() {
   );
 }
 
-function reply404OnNoUpdate(done) {
+function reply404OnNoUpdate (done) {
   data.expects.expect404(ctrl, done);
 }
 
-function handleUnknownError(done) {
+function handleUnknownError (done) {
   data.expects.handleErrors(ctrl, done);
 }
 
-function replyWithNullOnSuccess(done) {
+function replyWithNullOnSuccess (done) {
   ctrl.execute();
 
   setTimeout(() => {
