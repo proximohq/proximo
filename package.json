@@ -7,7 +7,7 @@
     "start": "node server/app.js",
     "test": "jasmine JASMINE_CONFIG_PATH=jasmine.config.json",
     "test:watch": "watch \"jasmine JASMINE_CONFIG_PATH=jasmine.config.json || exit 0\" server",
-    "migrate": "./node_modules/.bin/sequelize db:migrate"
+    "migrate": "sequelize db:migrate"
   },
   "author": "René Olivo",
   "license": "MIT",
