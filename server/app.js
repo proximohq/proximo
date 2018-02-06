@@ -6,9 +6,7 @@ const express = require('express');
 const app = express();
 const db = require('../models');
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+app.use(express.static('public'));
 
 app.get('/api/users', function (req, res) {
   db.users.findAll()

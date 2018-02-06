@@ -11,10 +11,11 @@ services:
   server:
     build: .
     volumes:
-      - ./server:/usr/src/app/server
       - ./config:/usr/src/app/config
       - ./migrations:/usr/src/app/migrations
       - ./models:/usr/src/app/models
+      - ./public:/usr/src/app/public
+      - ./server:/usr/src/app/server
     ports:
       - 3000:3000
     command: sh /usr/src/app/start.sh
