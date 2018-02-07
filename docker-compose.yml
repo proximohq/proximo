@@ -11,10 +11,10 @@ services:
   server:
     build: .
     volumes:
+      - ./client:/usr/src/app/client
       - ./config:/usr/src/app/config
       - ./migrations:/usr/src/app/migrations
       - ./models:/usr/src/app/models
-      - ./public:/usr/src/app/public
       - ./server:/usr/src/app/server
     ports:
       - 3000:3000
