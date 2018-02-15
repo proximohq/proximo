@@ -4,17 +4,17 @@
   "description": "",
   "main": "index.html",
   "scripts": {
-    "build": "ENV=production webpack",
-    "start:watch": "npm run server  && webpack --watch",
-    "server": "npm run server:stop && pm2 start server.js",
-    "server:stop": "pm2 stop server.js > /dev/null || true",
+    "build": "ENV=production npm install && webpack",
+    "start": "npm install && webpack",
+    "start:watch": "npm install && webpack --watch",
     "test": "karma start",
     "test:watch": "karma start --auto-watch --no-single-run"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bootstrap": "^4.0.0"
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

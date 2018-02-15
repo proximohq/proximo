@@ -1,3 +1,8 @@
 import './styles/style.scss';
+import $ from 'jquery';
 
-console.log('it works!');
+(function () {
+  var html = require('./app.pug')();
+
+  $('body').html(html);
+})();

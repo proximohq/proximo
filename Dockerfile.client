@@ -1,0 +1,5 @@
+FROM node:latest
+WORKDIR /usr/src/app
+ADD client/package.json /usr/src/app/package.json
+ADD client/node_modules /usr/src/app/node_modules
+RUN npm install

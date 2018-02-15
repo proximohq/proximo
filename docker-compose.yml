@@ -21,3 +21,11 @@ services:
     command: sh /usr/src/app/start.sh
     links:
       - database
+
+  client:
+    build:
+      context: .
+      dockerfile: Dockerfile.client
+    volumes:
+      - ./client:/usr/src/app
+    command: npm run start:watch
