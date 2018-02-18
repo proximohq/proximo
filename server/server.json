@@ -1,0 +1,13 @@
+{
+  "apps": [
+    {
+      "name": "Próximo Server",
+      "script": "./src/app.js",
+      "watch": true,
+      "ignore_watch": [
+        "node_modules",
+        "client"
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 .env
-client/public/dist
+dist
+v8-compile-cache*
 
 
 # Logs

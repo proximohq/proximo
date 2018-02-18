@@ -2,23 +2,21 @@ version: '2'
 services:
   database:
     image: mysql:latest
-    env_file: .env
+    env_file: server/.env
     environment:
       MYSQL_DATABASE: proximo
     ports:
       - "3306:3306"
 
   server:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile.server
     volumes:
-      - ./client:/usr/src/app/client
-      - ./config:/usr/src/app/config
-      - ./migrations:/usr/src/app/migrations
-      - ./models:/usr/src/app/models
-      - ./server:/usr/src/app/server
+      - ./server:/usr/src/app
     ports:
       - 3000:3000
-    command: sh /usr/src/app/start.sh
+    command: sh /usr/src/app/start-server.sh
     links:
       - database
 
@@ -27,5 +25,5 @@ services:
       context: .
       dockerfile: Dockerfile.client
     volumes:
-      - ./client:/usr/src/app
+      - ./server/client:/usr/src/app
     command: npm run start:watch
