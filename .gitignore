@@ -1,6 +1,7 @@
 .env
 dist
 v8-compile-cache*
+private
 
 
 # Logs
