@@ -2,5 +2,12 @@
   header.logo.col-md-12
     h1 Próximo
 
-  .login-container.col-md-6
-    p hello world
+  form.login-container.col-md-6
+    .form-group
+      input.form-control(name="email", placeholder="Email")
+
+    .form-group
+      input.form-control(name="password", type="password", placeholder="Password")
+
+    .form-group
+      button.btn.btn-primary Login

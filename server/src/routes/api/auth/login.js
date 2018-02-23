@@ -13,7 +13,7 @@ module.exports = function (req, res) {
     .then(prepareToken)
     .then(respondSuccessfully)
     .catch((error) => {
-      res.status(500).send({ message: 'Internval Server Error' });
+      res.status(500).json({ message: 'Internval Server Error' });
       console.error(error);
     });
 
@@ -28,7 +28,7 @@ module.exports = function (req, res) {
       return Promise.resolve();
     }
 
-    res.status(500).send({
+    res.status(500).json({
       error: true,
       message: 'Must provide "email" and "password" fields'
     });
@@ -51,7 +51,7 @@ module.exports = function (req, res) {
           return user;
         }
 
-        res.status(404).send({
+        res.status(404).json({
           error: true,
           message: `User with email ${req.body.email} not found`
         });
@@ -76,7 +76,7 @@ module.exports = function (req, res) {
       return;
     }
 
-    res.status(500).send({
+    res.status(500).json({
       error: true,
       message: `Wrong password`
     });
@@ -108,7 +108,7 @@ module.exports = function (req, res) {
    * Responds the request with the JWT signed token and the user data.
    */
   function respondSuccessfully () {
-    res.send({
+    res.json({
       success: true,
       data: data,
       token: token
