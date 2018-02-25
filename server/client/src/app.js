@@ -10,40 +10,48 @@ class App {
    * Runs the initialization code necesary to attach the app to the DOM
    */
   static init () {
-    const html = require('./app.pug')();
-    this.app = $(html);
-
+    this.initDomElements();
     this.addLoginFormBindins();
 
     this.app.appendTo('body');
   }
 
   /**
+   * Initializes the dom elements needed by the app.
+   */
+  static initDomElements () {
+    const html = require('./app.pug')();
+
+    this.app = $(html);
+    this.loginForm = this.app.find('form.login');
+  }
+
+  /**
    * Add bindings for user authentication.
    */
   static addLoginFormBindins () {
-    const form = this.app.find('form.login');
-
-    form.submit((event) => {
+    this.loginForm.submit((event) => {
       event.preventDefault();
 
-      const email = form.find('[name=email]').val();
-      const password = form.find('[name=password]').val();
+      const email = this.loginForm.find('[name=email]').val();
+      const password = this.loginForm.find('[name=password]').val();
 
       Session.login(email, password)
-        .then(() => {
-          this.app.find('.login-success')
-            .slideDown('slow')
-            .delay(3000)
-            .slideUp('slow');
-        })
-        .catch(() => {
-          this.app.find('.login-failed')
-            .slideDown('slow')
-            .delay(3000)
-            .slideUp('slow');
-        });
+        .then(() => this.displayLoginMessage('success'))
+        .catch(() => this.displayLoginMessage('failed'));
     });
+  }
+
+  /**
+   * Displays a login success or failed message.
+   *
+   * @param {String} messageType either success or failed.
+   */
+  static displayLoginMessage (messageType) {
+    this.app.find(`.login-${messageType}`)
+      .slideDown('slow')
+      .delay(3000)
+      .slideUp('slow');
   }
 }
 
