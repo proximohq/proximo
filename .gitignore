@@ -2,6 +2,7 @@
 dist
 v8-compile-cache*
 private
+karma-*
 
 
 # Logs

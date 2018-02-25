@@ -3,6 +3,14 @@ import config from 'config';
 import storage from './storage';
 
 export default {
+  /**
+   * Logins the user using the given email and password. The result is stored
+   * in a session storage.
+   *
+   * @param {String} email
+   * @param {String} password
+   * @return {Promise} resolves to nothing after the login has been completed successfully.
+   */
   login: function login (email, password) {
     return $.ajax({
       type: 'POST',

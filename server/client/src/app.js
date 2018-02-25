@@ -6,6 +6,9 @@ import './app.scss';
 import Session from './services/session';
 
 class App {
+  /**
+   * Runs the initialization code necesary to attach the app to the DOM
+   */
   static init () {
     const html = require('./app.pug')();
     this.app = $(html);
@@ -15,6 +18,9 @@ class App {
     this.app.appendTo('body');
   }
 
+  /**
+   * Add bindings for user authentication.
+   */
   static addLoginFormBindins () {
     const form = this.app.find('form.login');
 
