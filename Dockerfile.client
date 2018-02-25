@@ -1,2 +1,17 @@
 FROM node:latest
 WORKDIR /usr/src/app
+RUN apt-get update
+
+# Install headless chrome:
+RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | tee /etc/apt/sources.list.d/google-chrome.list
+RUN apt-get update
+RUN apt-get install google-chrome-stable -y
+
+# Add App as a user
+RUN groupadd -r app
+RUN useradd -r -g app -G audio,video app
+RUN chown -R app:app /usr/src/app
+
+# Run Chrome non-privileged
+USER app
