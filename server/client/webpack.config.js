@@ -22,7 +22,7 @@ let plugins = [
   // new webpack.NoEmitOnErrorsPlugin(),
 ];
 
-if (process.env.ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
   cssLoader = extractCss.extract([
     'css-loader',
     'sass-loader'
