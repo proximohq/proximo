@@ -3,9 +3,16 @@
 const webpack = require('webpack');
 const Extract = require('extract-text-webpack-plugin');
 const path = require('path');
+const fs = require('fs');
+const config = require('config');
 
 const SRC_DIR = path.join(__dirname, 'src');
 const DIST_DIR = path.join(__dirname, 'public/dist');
+
+// CONFIG
+const configPath = path.resolve(__dirname, 'public/dist/config.json');
+fs.writeFileSync(configPath, JSON.stringify(config));
+//
 
 const extractCss = new Extract('styles.css');
 let cssLoader;
@@ -78,6 +85,11 @@ module.exports = {
         loader: 'expose-loader?jQuery!expose-loader?$'
       }
     ]
+  },
+  resolve: {
+    alias: {
+      config: configPath
+    }
   },
   plugins: plugins,
   stats: {

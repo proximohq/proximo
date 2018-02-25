@@ -1,41 +1,46 @@
-import './styles/style.scss';
 import $ from 'jquery';
 
-const API_BASE_URL = 'http://localhost:3000/api';
+import './styles/style.scss';
+import './app.scss';
 
-(function () {
-  var html = require('./app.pug')();
-  var app = $(html);
+import Session from './services/session';
 
-  app.find('form').submit(function (e) {
-    e.preventDefault();
+class App {
+  static init () {
+    const html = require('./app.pug')();
+    this.app = $(html);
 
-    var form = $(this);
-    var email = form.find('[name=email]').val();
-    var password = form.find('[name=password]').val();
+    this.addLoginFormBindins();
 
-    login()
-      .then(storeAuthData);
+    this.app.appendTo('body');
+  }
 
-    function login () {
-      return $.ajax({
-        type: 'POST',
-        url: `${API_BASE_URL}/auth/login`,
-        data: { email, password }
-      });
-    }
+  static addLoginFormBindins () {
+    const form = this.app.find('form.login');
 
-    function storeAuthData (response) {
-      let storage = window.localStorage.proximo &&
-        JSON.parse(window.localStorage.proximo) || {};
+    form.submit((event) => {
+      event.preventDefault();
 
-      storage.user = response.data.user;
-      storage.token = response.token;
-      console.log(storage);
+      const email = form.find('[name=email]').val();
+      const password = form.find('[name=password]').val();
 
-      window.localStorage.proximo = JSON.stringify(storage);
-    }
-  });
+      Session.login(email, password)
+        .then(() => {
+          this.app.find('.login-success')
+            .slideDown('slow')
+            .delay(3000)
+            .slideUp('slow');
+        })
+        .catch(() => {
+          this.app.find('.login-failed')
+            .slideDown('slow')
+            .delay(3000)
+            .slideUp('slow');
+        });
+    });
+  }
+}
 
-  app.appendTo('body');
-})();
+global.App = App;
+
+export default App;

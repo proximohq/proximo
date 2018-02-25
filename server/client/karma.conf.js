@@ -3,9 +3,10 @@ const webpackConf = require('./webpack.config');
 module.exports = function (config) {
   config.set({
     files: [
+      'tests/helpers/**/*.js',
       'src/**/*.spec.js'
     ],
-    autowatch: true,
+    autowatch: false,
     singleRun: true,
     port: process.env.PORT,
     colors: true,
@@ -23,11 +24,12 @@ module.exports = function (config) {
       suppressSkipped: true
     },
     preprocessors: {
-      'src/**/*.spec.js': ['webpack', 'sourcemap']
+      'src/**/*.spec.js': ['webpack', 'sourcemap'],
+      'tests/**/*.js': ['webpack', 'sourcemap']
     },
     webpackMiddleware: {
       noInfo: true,
-      stats: 'errors-only'
+      stats: 'warn'
     },
     webpack: webpackConf
   });

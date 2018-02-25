@@ -1,8 +1,14 @@
-#main-container.container
+#main-container.container.app-component
   header.logo.col-md-12
     h1 Próximo
 
-  form.login-container.col-md-6
+  .alert.alert-success.login-success
+    | Welcome back!
+
+  .alert.alert-warning.login-failed
+    | The email or password are not valid.
+
+  form.login.col-md-6
     .form-group
       input.form-control(name="email", placeholder="Email")
 
