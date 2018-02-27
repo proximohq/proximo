@@ -1,6 +1,6 @@
 import $ from 'jquery';
 
 beforeEach(() => {
-  $('body').empty();
+  $('body').html('<div id="page-container"></div>');
   delete window.localStorage.proximo;
 });

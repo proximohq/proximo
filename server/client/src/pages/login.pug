@@ -1,0 +1,16 @@
+.login-page
+  .alert.alert-success.login-success
+    | Welcome back!
+
+  .alert.alert-warning.login-failed
+    | The email or password are not valid.
+
+  form.login.col-md-6
+    .form-group
+      input.form-control(name="email", placeholder="Email")
+
+    .form-group
+      input.form-control(name="password", type="password", placeholder="Password")
+
+    .form-group
+      button.btn.btn-primary Login

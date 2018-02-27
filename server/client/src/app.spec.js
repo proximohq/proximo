@@ -1,72 +1,23 @@
+/* globals App */
+
 import $ from 'jquery';
 
-import App from './app';
-import Session from './services/session';
+import Router from './libs/router';
+import LoginPage from './pages/login';
 
 describe('App', () => {
   beforeEach(() => {
+    spyOn(Router, 'page').and.returnValue(Router);
+    require('./app');
+
     App.init();
   });
 
-  describe('Login', () => {
-    const email = 'info@example.com';
-    const password = 'password';
+  it('attaches a #page-container element', () => {
+    expect($('#page-container').length).toBe(1);
+  });
 
-    beforeEach(() => {
-      $('form.login [name=email]').val(email);
-      $('form.login [name=password]').val(password);
-    });
-
-    it('defines a login form', () => {
-      expect($('form.login').length).toBe(1);
-    });
-
-    it('has a hidden login message', () => {
-      expect($('.login-success').length).toBe(1);
-      expect($('.login-success').is(':visible')).toBe(false);
-    });
-
-    it('has a hidden login failed message', () => {
-      expect($('.login-failed').length).toBe(1);
-      expect($('.login-failed').is(':visible')).toBe(false);
-    });
-
-    describe('when submitting the login form', () => {
-      beforeEach(() => {
-        spyOn(Session, 'login').and.returnValue(Promise.resolve());
-
-        $('form.login').submit();
-      });
-
-      it('sends the form values to the Session service', () => {
-        expect(Session.login).toHaveBeenCalledWith(email, password);
-      });
-    });
-
-    describe('when the login was successful', () => {
-      beforeEach((done) => {
-        spyOn(Session, 'login').and
-          .returnValueAndWaitForPromise(done);
-
-        $('form.login').submit();
-      });
-
-      it('displays a login sucess message', () => {
-        expect($('.login-success').is(':visible')).toBe(true);
-      });
-    });
-
-    describe('when the login was not successful', () => {
-      beforeEach((done) => {
-        spyOn(Session, 'login').and
-          .returnValueAndWaitForPromise(done, Promise.reject());
-
-        $('form.login').submit();
-      });
-
-      it('displays a login sucess message', () => {
-        expect($('.login-failed').is(':visible')).toBe(true);
-      });
-    });
+  it('defines a login page', () => {
+    expect(Router.page).toHaveBeenCalledWith('/login', LoginPage);
   });
 });
