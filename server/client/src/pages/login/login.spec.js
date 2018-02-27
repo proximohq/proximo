@@ -4,12 +4,15 @@ import Login from './login';
 import Session from '../../services/session';
 
 describe('Login', () => {
+  let login;
   const email = 'info@example.com';
   const password = 'password';
 
   beforeEach(() => {
-    new Login().show();
+    login = new Login();
+    login.goTo = jasmine.createSpy('goTo');
 
+    login.show();
     $('form.login [name=email]').val(email);
     $('form.login [name=password]').val(password);
   });
@@ -50,6 +53,10 @@ describe('Login', () => {
 
     it('displays a login sucess message', () => {
       expect($('.login-success').is(':visible')).toBe(true);
+    });
+
+    it('redirects the user to the home page', () => {
+      expect(login.goTo).toHaveBeenCalledWith('/');
     });
   });
 

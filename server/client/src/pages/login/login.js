@@ -38,6 +38,7 @@ export default class LoginPage {
 
       Session.login(email, password)
         .then(() => this.displayLoginMessage('success'))
+        .then(() => this.goTo('/'))
         .catch(() => this.displayLoginMessage('failed'));
 
       return false;
@@ -48,11 +49,13 @@ export default class LoginPage {
    * Displays a login success or failed message.
    *
    * @param {String} messageType either success or failed.
+   * @return {Promise} resolved after the animation is completed.
    */
   displayLoginMessage (messageType) {
-    this.page.find(`.login-${messageType}`)
+    return this.page.find(`.login-${messageType}`)
       .slideDown('slow')
       .delay(3000)
-      .slideUp('slow');
+      .slideUp('slow')
+      .promise();
   }
 }

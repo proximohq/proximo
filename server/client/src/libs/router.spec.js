@@ -1,15 +1,18 @@
 import pageLibrary from 'page';
 import RouterInjector from 'inject-loader!./router';
 
-class HomePage {
-  show () {}
-}
-
 describe('Router', () => {
-  let Router, page;
+  let Router, page, goTo;
+
+  class HomePage {
+    show () {
+      goTo = this.goTo;
+    }
+  }
 
   beforeEach(() => {
     page = { spy: pageLibrary };
+    goTo = null;
 
     spyOn(page, 'spy').and.callThrough();
 
@@ -31,10 +34,11 @@ describe('Router', () => {
   });
 
   describe('when adding a new HomePage page', () => {
-    let result;
+    let pageHandler, result;
 
     beforeEach(() => {
       result = Router.page('/page', HomePage);
+
       Router.init();
     });
 
@@ -66,6 +70,20 @@ describe('Router', () => {
 
     it('goes to the specific page', () => {
       expect(page.spy).toHaveBeenCalledWith('/page');
+    });
+  });
+
+  describe('when the page calls its go to function', () => {
+    beforeEach(() => {
+      spyOn(Router, 'goTo');
+
+      Router.page('/page', HomePage).init();
+      page.spy('/page');
+      goTo('/admin');
+    });
+
+    it('calls the goTo method of the router', () => {
+      expect(Router.goTo).toHaveBeenCalledWith('/admin');
     });
   });
 });
