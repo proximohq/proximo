@@ -22,6 +22,9 @@ export default {
     });
   },
 
+  /**
+   * Determines if the user is logged in or not.
+   */
   isLoggedIn: function () {
     const sessionStorage = storage.get('session');
 
