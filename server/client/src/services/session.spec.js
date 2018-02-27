@@ -61,4 +61,30 @@ describe('Session', () => {
       });
     });
   });
+
+  describe('isLoggedIn', () => {
+    let result;
+
+    describe('when the user has logged in', () => {
+      beforeEach(() => {
+        storage.set('session', sessionData);
+
+        result = session.isLoggedIn();
+      });
+
+      it('returns true', () => {
+        expect(result).toBe(true);
+      });
+    });
+
+    describe('when the user has not logged in', () => {
+      beforeEach(() => {
+        result = session.isLoggedIn();
+      });
+
+      it('returns false', () => {
+        expect(result).toBe(false);
+      });
+    });
+  });
 });

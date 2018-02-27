@@ -58,4 +58,14 @@ describe('Router', () => {
       expect(HomePage.prototype.show).toHaveBeenCalled();
     });
   });
+
+  describe('when going to a new page', () => {
+    beforeEach(() => {
+      Router.goTo('/page');
+    });
+
+    it('goes to the specific page', () => {
+      expect(page.spy).toHaveBeenCalledWith('/page');
+    });
+  });
 });

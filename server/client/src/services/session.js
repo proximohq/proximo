@@ -20,5 +20,11 @@ export default {
     .then((response) => {
       storage.set('session', response);
     });
+  },
+
+  isLoggedIn: function () {
+    const sessionStorage = storage.get('session');
+
+    return !!sessionStorage;
   }
 };

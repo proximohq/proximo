@@ -16,6 +16,10 @@ class Router {
 
     return this;
   }
+
+  goTo (path) {
+    page(path);
+  }
 }
 
 module.exports = new Router();

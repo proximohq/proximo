@@ -2,7 +2,7 @@ import './login.scss';
 
 import $ from 'jquery';
 
-import Session from '../services/session';
+import Session from '../../services/session';
 
 export default class LoginPage {
   /**

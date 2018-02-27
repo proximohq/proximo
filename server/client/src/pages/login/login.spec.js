@@ -1,7 +1,7 @@
 import $ from 'jquery';
 
 import Login from './login';
-import Session from '../services/session';
+import Session from '../../services/session';
 
 describe('Login', () => {
   const email = 'info@example.com';
